@@ -1,0 +1,9 @@
+[meta]
+name        = "Stat Exporter"
+author      = "risyn_1"
+category    = "Utility"
+version     = "1.0.0"
+
+[script]
+#__DEFINES__
+dependencies = ["ManiaExchange", "Grinding Stats"]
