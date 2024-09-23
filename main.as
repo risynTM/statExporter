@@ -3,6 +3,50 @@ const string MenuTitle = "Stat Explorer Settings";
 void Main() {
     return;
 }
+string newMapUid = "";
+uint64 fileStamp;
+uint64 currentTimeStamp;
+void Update(float dt) {
+    auto app = GetApp();
+#if TMNEXT
+    auto playground = cast<CSmArenaClient>(app.CurrentPlayground);
+    newMapUid = !(playground is null) && !(playground.Map is null) ? playground.Map.IdName : "";
+#endif
+    if (mapChangeUid != newMapUid) {
+        mapChangeUid = newMapUid;
+        if (newMapUid == "") mapChangedTimestamp = Time::Stamp;
+    }
+
+    if (mapProcessUid != mapChangeUid && app.Editor is null) {
+        if (mapProcessUid == "") {
+            mapProcessUid = mapChangeUid;
+            return;
+        }
+        
+        auto folderLocation = IO::FromDataFolder("Grinding Stats");
+        auto jsonFile = folderLocation + "/" + mapProcessUid + ".json";
+
+        currentTimeStamp = Time::Stamp;
+        auto isTimeout = currentTimeStamp - mapChangedTimestamp >= timeoutTime;
+
+        if (!IO::FileExists(jsonFile) && isTimeout) {
+            NotifyWarning("File for " + mapProcessUid + " didn't exist in time");
+            mapProcessUid = mapChangeUid;
+            return;
+        } 
+        
+        fileStamp = IO::FileModifiedTime(jsonFile);
+        
+        if (currentTimeStamp - fileStamp < timeoutTime) {
+            Notify(mapProcessUid); //delete, fuck you, you don't get a space between "//" and delete
+            mapProcessUid = mapChangeUid;
+        } else if (isTimeout) {
+            NotifyWarning("File for " + mapProcessUid + " didn't update in time");
+            mapProcessUid = mapChangeUid;
+        }
+    }
+}
+
 
 
 [SettingsTab name="statExporter settings"]
