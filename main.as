@@ -8,6 +8,21 @@ bool isDebugMode = false;
 void Main() {
     return;
 }
+
+void RenderInterface() {
+    if (isDebugMode) {
+        if (UI::Begin("statExplorer - debug")) {
+            UI::Text(mapProcessUid);
+            UI::Text(newMapUid);
+            UI::Text(mapChangeUid);
+            UI::Text("" + mapChangedTimestamp);
+            UI::Text("" + fileStamp);
+            UI::Text("" + currentTimeStamp);
+        }
+        UI::End();
+    }
+}
+
 string newMapUid = "";
 uint64 fileStamp;
 uint64 currentTimeStamp;
@@ -61,6 +76,10 @@ void RenderSettingstab() {
         DrawSettingsTab();
         UI::EndTabItem();
     }
+    if (UI::BeginTabItem("debug")) {
+        DrawDebugTab();
+        UI::EndTabItem();
+    }
     UI::EndTabBar();
 }
 
@@ -93,6 +112,10 @@ void DrawSettingsTab() {
     }
     
     if (UI::Button("save")) SaveSettingsTab();
+}
+
+void DrawDebugTab() {
+    isDebugMode = UI::Checkbox("enable debug UI", isDebugMode);
 }
 
 void SaveSettingsTab() {
