@@ -7,6 +7,7 @@ Header fields:
   Content-Type: application/json
   ApiKey: {user specified API-Key (optional)}
 Body json:
+```
   {
     id: {Trackmania-Exchange-Map-ID},
     name: {Map name},
@@ -15,9 +16,10 @@ Body json:
     tries: {your number of tries on the map},
     playtime: {your playtime, duh}
   }
-
+```
 ## Medal format
 I won't change existing IDs but might add new ones, if people want that functionality.
+```
 0: none
 1: bronze
 2: silver
@@ -25,3 +27,4 @@ I won't change existing IDs but might add new ones, if people want that function
 4: author
 5: champion
 6: world record
+```
