@@ -34,10 +34,14 @@ void Update(float dt) {
 #endif
     if (mapChangeUid != newMapUid) {
         mapChangeUid = newMapUid;
+        // detect the player leaving a map by checking if the new map is empty and get a timestamp for the file check timeout
+        // works because in between maps and when going to menu there is a time where you aren't on a map
         if (newMapUid == "") mapChangedTimestamp = Time::Stamp;
     }
 
+    // check if the last map that was processed is different from the map (or menu) the player changed to
     if (mapProcessUid != mapChangeUid && app.Editor is null) {
+        // when loading the first map of the session it is not necessary to collect stats as no run has been submitted yet
         if (mapProcessUid == "") {
             mapProcessUid = mapChangeUid;
             return;
@@ -59,6 +63,7 @@ void Update(float dt) {
         
         if (currentTimeStamp - fileStamp < timeoutTime) {
             Notify(mapProcessUid); //delete, fuck you, you don't get a space between "//" and delete
+            GatherData();
             mapProcessUid = mapChangeUid;
         } else if (isTimeout) {
             NotifyWarning("File for " + mapProcessUid + " didn't update in time");
@@ -83,8 +88,9 @@ void RenderSettingstab() {
     UI::EndTabBar();
 }
 
-
+[Setting hidden]
 string api_url = "";
+[Setting hidden]
 string api_key = "";
 bool show_settings = false;
 bool show_confirm_window = false;
@@ -141,4 +147,27 @@ void ConfirmShowSettings() {
         }
     }
     UI::End();
+}
+
+void GatherData() {
+    Notify("yup data bein gathered");
+    Net::HttpRequest request;
+    request.Headers.Set("Content-Type", "application/json");
+    request.Headers.Set("ApiKey", api_key);
+    // gather data here 
+    // tmxId, map name, medal, time, tries, playtime
+    // medal format:
+    // 0 - none
+    // 1 - bronze
+    // 2 - silver
+    // 3 - gold
+    // 4 - author
+    // 5 - champion
+    // 6 - WR
+    request.Url = api_url;
+    startnew(CoroutineFunc(RequestHandler(request))); // am I doing this right????????????????????????
+    }
+
+void RequestHandler(Net::HttpRequest request) {
+    // do stuff, I guess
 }
