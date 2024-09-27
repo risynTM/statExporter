@@ -151,9 +151,9 @@ void ConfirmShowSettings() {
 
 void GatherData() {
     Notify("yup data bein gathered");
-    Net::HttpRequest request;
+    Net::HttpRequest request;   
     request.Headers.Set("Content-Type", "application/json");
-    request.Headers.Set("ApiKey", api_key);
+    // request.Headers.Set("ApiKey", api_key);
     // gather data here 
     // tmxId, map name, medal, time, tries, playtime
     // medal format:
@@ -165,9 +165,18 @@ void GatherData() {
     // 5 - champion
     // 6 - WR
     request.Url = api_url;
-    startnew(CoroutineFunc(RequestHandler(request))); // am I doing this right????????????????????????
+    startnew(CoroutineFuncUserdata(RequestHandler), request); 
     }
 
-void RequestHandler(Net::HttpRequest request) {
-    // do stuff, I guess
+void RequestHandler(ref@ arg) {
+    auto request = cast<Net::HttpRequest>(arg);
+    request.Start();
+    while(!request.Finished()) {
+        yield();
+    }
+    if (request.ResponseCode() == 200) {
+        Notify("Updated data");
+        return;
+    }
+    NotifyWarning("Failed to update data. Response: " + request.ResponseCode() + " See log for more info.");
 }
