@@ -2,6 +2,7 @@
 
 This Trackmania 2020 plugin allows you to export various stats to an api of your choice for later processing. One example for this is https://tmc.risyn.art
 
+The only thing your API needs to do is return a status code coresponding to the success of the request (e.g. 200 if everything worked, 500 if something went wrong server side, etc.)
 ## Data format
 Header fields:
   Content-Type: application/json
