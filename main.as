@@ -12,12 +12,30 @@ void Main() {
 void RenderInterface() {
     if (isDebugMode) {
         if (UI::Begin("statExplorer - debug")) {
-            UI::Text(mapProcessUid);
-            UI::Text(newMapUid);
-            UI::Text(mapChangeUid);
+            UI::Columns(2);
+
+            UI::Text("Processed UID:");
+            UI::Text("New UID:");
+            UI::Text("Changed UID:");
+            UI::Text("Map change timestamp:");
+            UI::Text("GrindingStats file edit timestamp:");
+            UI::Text("Current timestamp:");
+            UI::Text("New map TMX-Id:");
+            UI::Text("Map name:");
+            UI::Text("Medal Id:");
+            UI::Text("PB:");
+            
+            UI::NextColumn();
+            UI::Text("" + mapProcessUid);
+            UI::Text("" + newMapUid);
+            UI::Text("" + mapChangeUid);
             UI::Text("" + mapChangedTimestamp);
             UI::Text("" + fileStamp);
             UI::Text("" + currentTimeStamp);
+            UI::Text("" + newMapTMXId);
+            UI::Text("" + mapName);
+            UI::Text("" + medalId);
+            UI::Text("" + time);
         }
         UI::End();
     }
