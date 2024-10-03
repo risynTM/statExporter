@@ -180,13 +180,19 @@ void ConfirmShowSettings() {
     UI::End();
 }
 
+int medalId;
+uint time;
 void GatherData() {
     Notify("yup data bein gathered");
     Net::HttpRequest request;   
     request.Headers.Set("Content-Type", "application/json");
-    // request.Headers.Set("ApiKey", api_key);
+    request.Headers.Set("ApiKey", api_key);
     // gather data here 
-    // tmxId, map name, medal, time, tries, playtime
+    // tmxId -> newTMXId,
+    // map name -> mapName,
+    time = GetPB(); 
+    medalId = GetMedalId();
+    // tries, playtime
     // medal format:
     // 0 - none
     // 1 - bronze
@@ -210,4 +216,58 @@ void RequestHandler(ref@ arg) {
         return;
     }
     NotifyWarning("Failed to update data. Response: " + request.ResponseCode() + " See log for more info.");
+}
+
+int GetMedalId() {
+    auto app = cast<CTrackMania@>(GetApp());
+    auto rootMap = app.RootMap;
+    auto scoreMgr = GetScoreMgr(app);
+    if (scoreMgr is null) {
+        return -1;
+    }
+    if (time == 4294967295) {
+        return 0;
+    }
+    print("Pb: " + time);
+    print("Nandomedal: " + scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", ""));
+    // bool isWR = ; // check if pb is WR
+    // uint medalC = ; // get champion medal Time somehow
+
+    // if (isWR) {
+    //     return 6;
+    // }
+    // if (pb <= medalC) {
+    //     return 5;
+    // }
+
+    // return Nando medal ID if above don't apply
+    return scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", "");
+}
+
+uint GetPB() {
+    auto app = cast<CTrackMania@>(GetApp());
+    auto rootMap = app.RootMap;
+    auto scoreMgr = GetScoreMgr(app);
+    if (scoreMgr is null) {
+        return -1;
+    }
+    uint pb = scoreMgr.Map_GetRecord_v2(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", "");
+    if (pb == 4294967295) {
+        return 0;
+    }
+    return pb;
+}
+
+CGameScoreAndLeaderBoardManagerScript@ GetScoreMgr(CGameCtnApp@ app) {
+    try {
+        return app.Network.ClientManiaAppPlayground.ScoreMgr;
+    } catch { return null; }
+}
+
+MwId UserId {
+    get {
+        auto userMgr = GetApp().Network.ClientManiaAppPlayground.UserMgr;
+        if (userMgr is null || userMgr.Users.Length < 1) return MwId(256);
+        return userMgr.Users[0].Id;
+    }
 }
