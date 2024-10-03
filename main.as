@@ -215,6 +215,10 @@ void RequestHandler(ref@ arg) {
         Notify("Updated data");
         return;
     }
+    if (request.ResponseCode() == 0) {
+        NotifyWarning("No API-enpoint found");
+        return;
+    }
     NotifyWarning("Failed to update data. Response: " + request.ResponseCode() + " See log for more info.");
 }
 
