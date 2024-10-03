@@ -2,7 +2,8 @@ const string MenuTitle = "Stat Explorer Settings";
 string mapChangeUid = "";
 string mapProcessUid = "";
 uint64 mapChangedTimestamp;
-const uint64 timeoutTime = 5000;
+const uint64 timeoutTime = 5;
+[Setting hidden]
 bool isDebugMode = false;
 
 void Main() {
