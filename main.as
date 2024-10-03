@@ -43,8 +43,11 @@ void RenderInterface() {
 }
 
 string newMapUid = "";
+int newMapTMXId;
 uint64 fileStamp;
 uint64 currentTimeStamp;
+Json::Value mapDetailJson;
+string mapName;
 void Update(float dt) {
     auto app = GetApp();
 #if TMNEXT
@@ -52,6 +55,13 @@ void Update(float dt) {
     newMapUid = !(playground is null) && !(playground.Map is null) ? playground.Map.IdName : "";
 #endif
     if (mapChangeUid != newMapUid) {
+        if (newMapUid != "") {
+            // gets the TMX id and map name when loading into a map, doesn't update on leaving a map
+            newMapTMXId = ManiaExchange::GetCurrentMapID();
+            mapDetailJson = ManiaExchange::GetCurrentMapInfo();
+            mapName = mapDetailJson.Get("GbxMapName");
+        }
+            
         mapChangeUid = newMapUid;
         // detect the player leaving a map by checking if the new map is empty and get a timestamp for the file check timeout
         // works because in between maps and when going to menu there is a time where you aren't on a map
