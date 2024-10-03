@@ -76,7 +76,7 @@ void Update(float dt) {
             return;
         }
         
-        auto folderLocation = IO::FromDataFolder("Grinding Stats");
+        auto folderLocation = IO::FromDataFolder("PluginStorage/GrindingStats/data");
         auto jsonFile = folderLocation + "/" + mapProcessUid + ".json";
 
         currentTimeStamp = Time::Stamp;
@@ -89,6 +89,7 @@ void Update(float dt) {
         } 
         
         fileStamp = IO::FileModifiedTime(jsonFile);
+        // print("FILESTAMP --------> ");
         
         if (currentTimeStamp - fileStamp < timeoutTime) {
             Notify(mapProcessUid); //delete, fuck you, you don't get a space between "//" and delete
@@ -99,6 +100,7 @@ void Update(float dt) {
             mapProcessUid = mapChangeUid;
         }
     }
+    // NotifyError("HUH???");
 }
 
 
