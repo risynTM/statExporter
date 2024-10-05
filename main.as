@@ -187,17 +187,20 @@ void ConfirmShowSettings() {
 
 int medalId;
 uint time;
+uint tries;
+uint playtime;
 void GatherData() {
     Notify("yup data bein gathered");
     Net::HttpRequest request;   
     request.Headers.Set("Content-Type", "application/json");
     request.Headers.Set("ApiKey", api_key);
     // gather data here 
-    // tmxId -> newTMXId,
+    ReadGrindingStatsFile();
+    // uid //maybe add this as an alternative??? <-------------------------------------------
+    // tmxId -> newMapTMXId,
     // map name -> mapName,
-    time = GetPB(); 
-    medalId = GetMedalId();
-    // tries, playtime
+    // tries -> tries,
+    // playtime -> playtime
     // medal format:
     // 0 - none
     // 1 - bronze
@@ -209,6 +212,16 @@ void GatherData() {
     request.Url = api_url;
     startnew(CoroutineFuncUserdata(RequestHandler), request); 
     }
+
+void ReadGrindingStatsFile() {
+    auto folderLocation = IO::FromDataFolder("PluginStorage/GrindingStats/data");
+    auto jsonFile = folderLocation + "/" + mapProcessUid + ".json";
+    if (IO::FileExists(jsonFile)) {
+        auto content = Json::FromFile(jsonFile);
+        tries = Text::ParseUInt64(content.Get('resets', "0"));
+        playtime = Text::ParseUInt64(content.Get('time', "0"));
+    }
+}
 
 void RequestHandler(ref@ arg) {
     auto request = cast<Net::HttpRequest>(arg);
