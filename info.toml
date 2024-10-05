@@ -7,3 +7,4 @@ version     = "1.0.0"
 [script]
 #__DEFINES__
 dependencies = ["ManiaExchange", "GrindingStats"]
+optional_dependencies = ["ChampionMedals"]
