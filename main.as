@@ -7,7 +7,12 @@ const uint64 timeoutTime = 5;
 bool isDebugMode = false;
 
 void Main() {
+#if DEPENDENCY_CHAMPIONMEDALS
     return;
+#else
+    NotifyDependency("Installing Champion Medals is highly encuraged!");
+    return;
+#endif
 }
 
 void RenderInterface() {
