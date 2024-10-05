@@ -102,7 +102,6 @@ void Update(float dt) {
         // print("FILESTAMP --------> ");
         
         if ((currentTimeStamp - fileStamp < timeoutTime) && (newMapTMXId > 0)) {
-            Notify(mapProcessUid); //delete, fuck you, you don't get a space between "//" and delete
             GatherData();
             mapProcessUid = mapChangeUid;
         } else if (isTimeout) {
