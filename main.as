@@ -62,9 +62,14 @@ void Update(float dt) {
     if (mapChangeUid != newMapUid) {
         if (newMapUid != "") {
             // gets the TMX id and map name when loading into a map, doesn't update on leaving a map
+            try {
             newMapTMXId = ManiaExchange::GetCurrentMapID();
             mapDetailJson = ManiaExchange::GetCurrentMapInfo();
             mapName = mapDetailJson.Get("GbxMapName");
+            } catch {
+                NotifyError("Error getting data from Trackmania Exchange");
+                // Stop execution ??
+            }
         }
             
         mapChangeUid = newMapUid;
