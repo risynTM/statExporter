@@ -252,6 +252,7 @@ void RequestHandler(ref@ arg) {
         return;
     }
     NotifyWarning("Failed to update data. Response: " + request.ResponseCode() + " See log for more info.");
+    print("Failed to update data. Response: " + request.Body);
 }
 
 int GetMedalId() {
