@@ -238,6 +238,7 @@ void ReadGrindingStatsFile() {
 
 void RequestHandler(ref@ arg) {
     auto request = cast<Net::HttpRequest>(arg);
+    request.Method = Net::HttpMethod::Post;
     request.Start();
     while(!request.Finished()) {
         yield();
