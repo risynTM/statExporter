@@ -190,7 +190,6 @@ uint time;
 uint tries;
 uint playtime;
 void GatherData() {
-    Notify("yup data bein gathered");
     Net::HttpRequest request;   
     request.Headers.Set("Content-Type", "application/json");
     request.Headers.Set("ApiKey", api_key);
