@@ -224,7 +224,7 @@ void GatherData() {
 
     request.Url = api_url;
     startnew(CoroutineFuncUserdata(RequestHandler), request); 
-    }
+}
 
 void ReadGrindingStatsFile() {
     auto folderLocation = IO::FromDataFolder("PluginStorage/GrindingStats/data");
