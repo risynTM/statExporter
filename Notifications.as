@@ -12,3 +12,8 @@ void NotifyWarning(const string &in msg) {
     warn(msg);
     UI::ShowNotification(Meta::ExecutingPlugin().Name + ": Warning", msg, vec4(.9, .6, .2, .3), 15000);
 }
+
+void NotifyDependency(const string &in msg) {
+    UI::ShowNotification(Meta::ExecutingPlugin().Name + ": Missing dependency", msg, vec4(.9, .1, .9, .3), 10000);
+    trace("Notified: " + msg);
+}
