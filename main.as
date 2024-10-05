@@ -257,10 +257,11 @@ int GetMedalId() {
     // if (isWR) {
     //     return 6;
     // }
-    // if (pb <= medalC) {
-    //     return 5;
-    // }
-
+#if DEPENDENCY_CHAMPIONMEDALS
+    if (time <= ChampionMedals::GetCMTime()) {
+        return 5;
+    }
+#endif
     // return Nando medal ID if above don't apply
     return scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", "");
 }
