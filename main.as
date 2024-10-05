@@ -101,7 +101,7 @@ void Update(float dt) {
         fileStamp = IO::FileModifiedTime(jsonFile);
         // print("FILESTAMP --------> ");
         
-        if (currentTimeStamp - fileStamp < timeoutTime) {
+        if ((currentTimeStamp - fileStamp < timeoutTime) && (newMapTMXId > 0)) {
             Notify(mapProcessUid); //delete, fuck you, you don't get a space between "//" and delete
             GatherData();
             mapProcessUid = mapChangeUid;
