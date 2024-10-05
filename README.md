@@ -27,5 +27,5 @@ I won't change existing IDs but might add new ones, if people want that function
 3: gold
 4: author
 5: champion
-6: world record
+6: world record - not implemented yet
 ```
