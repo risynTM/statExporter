@@ -208,6 +208,20 @@ void GatherData() {
     // 4 - author
     // 5 - champion
     // 6 - WR
+
+    time = GetPB(); 
+    medalId = GetMedalId();
+
+    auto jsonBody = Json::Object();
+    jsonBody["id"] = newMapTMXId;
+    jsonBody["name"] = mapName;
+    jsonBody["time"] = time; 
+    jsonBody["medal"] = medalId;
+    jsonBody["tries"] = tries;
+    jsonBody["playtime"] = playtime;
+
+    request.Body = Json::Write(jsonBody);
+
     request.Url = api_url;
     startnew(CoroutineFuncUserdata(RequestHandler), request); 
     }
