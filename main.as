@@ -296,10 +296,16 @@ uint GetPB() {
     return pb;
 }
 
-CGameScoreAndLeaderBoardManagerScript@ GetScoreMgr(CGameCtnApp@ app) {
+CGameScoreAndLeaderBoardManagerScript@ GetScoreMgr(CTrackMania@ app) {
     try {
         return app.Network.ClientManiaAppPlayground.ScoreMgr;
-    } catch { return null; }
+    } catch { 
+        try {
+            return app.MenuManager.MenuCustom_CurrentManiaApp.ScoreMgr;
+        } catch {
+            return null;
+        }
+    }
 }
 
 MwId UserId {
