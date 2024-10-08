@@ -309,7 +309,9 @@ CGameScoreAndLeaderBoardManagerScript@ GetScoreMgr(CTrackMania@ app) {
 
 MwId UserId {
     get {
-        auto userMgr = GetApp().Network.ClientManiaAppPlayground.UserMgr;
+        // auto userMgr = GetApp().Network.ClientManiaAppPlayground.UserMgr;
+        auto app = cast<CTrackMania@>(GetApp());
+        auto userMgr = app.MenuManager.MenuCustom_CurrentManiaApp.UserMgr;
         if (userMgr is null || userMgr.Users.Length < 1) return MwId(256);
         return userMgr.Users[0].Id;
     }
