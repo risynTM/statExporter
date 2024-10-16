@@ -266,12 +266,11 @@ int GetMedalId() {
     }
     print("Pb: " + time);
     print("Nandomedal: " + scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", ""));
-    // bool isWR = ; // check if pb is WR
     // uint medalC = ; // get champion medal Time somehow
 
-    // if (isWR) {
-    //     return 6;
-    // }
+    if (IsWR()) {
+        return 6;
+    }
 #if DEPENDENCY_CHAMPIONMEDALS
     if (time <= ChampionMedals::GetCMTime()) {
         return 5;
