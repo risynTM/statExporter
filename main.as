@@ -280,6 +280,31 @@ int GetMedalId() {
     return scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", "");
 }
 
+bool IsWR() {
+    string url = "https://live-services.trackmania.nadeo.live/api/token/leaderboard/group/map?scores[";
+    url = url + mapProcessUid + "]" + "=" + cast<string>(time); 
+
+    Net::HttpRequest request;
+    request.Headers.Set("Content-Type", "application/json");
+    request.Headers.Set("User-Agent", "statExporter Plugin/ @risyn_1 / mail@risyn.art");
+
+    auto maps = Json::Array();
+    string mapString = "\"mapUid\": \"" + mapProcessUid + "\", \"groupUid\": \"Personal_Best\"";  
+    auto map = Json::Parse(mapString);
+    maps.Add(map);
+
+    request.Body = Json::Write(maps);
+    request.Url = url;
+    auto requestCoroutine = startnew(CoroutineFuncUserdata(RequestHandler), request);
+    await(requestCoroutine);
+
+    requestAnswer = request.Json();
+    if (Json::Write(requestAnswer.Get("position")) == "1") {
+        return true;
+    }
+    return false;
+}
+
 uint GetPB() {
     auto app = cast<CTrackMania@>(GetApp());
     auto rootMap = app.RootMap;
