@@ -19,7 +19,7 @@ Body json:
   }
 ```
 ## Medal format
-I won't change existing IDs but might add new ones, if people want that functionality.
+I won't change existing IDs but might add new ones, if people want that functionality. You can choose if you want to prioritize Medals or world record in the settings. Currently if this is active WR will be prioritized over all medals (e.g. if you have CM and WR, 6 is returned, etc.), otherwise 6 is never returned.
 ```
 0: none
 1: bronze
