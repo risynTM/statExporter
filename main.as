@@ -218,6 +218,7 @@ void GatherData() {
     // 4 - author
     // 5 - champion
     // 6 - WR
+    // 7 - warrior
 
     time = GetPB(); 
     medalId = GetMedalId();
