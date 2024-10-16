@@ -270,6 +270,7 @@ int GetMedalId() {
     auto app = cast<CTrackMania@>(GetApp());
     auto rootMap = app.RootMap;
     auto scoreMgr = GetScoreMgr(app);
+    uint nandoMedal;
     if (scoreMgr is null) {
         return -1;
     }
@@ -279,12 +280,15 @@ int GetMedalId() {
     print("Pb: " + time);
     print("Nandomedal: " + scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", ""));
     // uint medalC = ; // get champion medal Time somehow
+    bool isWr = IsWR();
 
     // !!!!!!!!!
     // check if CM/WM time gets returned correctly when leaving a map to menu
     // !!!!!!!!!
+    if (prioritizeWR && isWr) {
         return 6;
     }
+
 #if DEPENDENCY_CHAMPIONMEDALS
     if (time <= ChampionMedals::GetCMTime()) {
         return 5;
@@ -297,7 +301,8 @@ int GetMedalId() {
 #endif
 
     // return Nando medal ID if above don't apply
-    return scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", "");
+    nandoMedal = scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", "");
+    return nandoMedal
 }
 
 bool IsWR() {
