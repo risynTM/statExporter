@@ -10,7 +10,7 @@ void Main() {
 #if DEPENDENCY_CHAMPIONMEDALS
     return;
 #else
-    NotifyDependency("Installing Champion Medals is highly encuraged!");
+    NotifyDependency("Champion Medals are supported!");
     return;
 #endif
 }
