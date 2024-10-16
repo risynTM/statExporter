@@ -165,6 +165,8 @@ void DrawSettingsTab() {
         api_url = Text::OpenplanetFormatCodes(UI::InputText("Api Url", api_url));
         api_key = Text::OpenplanetFormatCodes(UI::InputText("Api Key", api_key, UI::InputTextFlags::Password)); 
     }
+    UI::Separator();
+    UI::Checkbox("Prioritize world record", prioritizeWR);
 }
 
 void DrawDebugTab() {
