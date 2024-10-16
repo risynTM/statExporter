@@ -280,7 +280,9 @@ int GetMedalId() {
     print("Nandomedal: " + scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", ""));
     // uint medalC = ; // get champion medal Time somehow
 
-    if (IsWR()) {
+    // !!!!!!!!!
+    // check if CM/WM time gets returned correctly when leaving a map to menu
+    // !!!!!!!!!
         return 6;
     }
 #if DEPENDENCY_CHAMPIONMEDALS
