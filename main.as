@@ -288,6 +288,12 @@ int GetMedalId() {
         return 5;
     }
 #endif
+#if DEPENDENCY_WARRIORMEDALS
+    if (time <= WarriorMedals::GetWMTimeAsync()) {
+        return 7;
+    }
+#endif
+
     // return Nando medal ID if above don't apply
     return scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", "");
 }
