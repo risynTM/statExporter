@@ -139,6 +139,8 @@ void RenderSettingstab() {
 string api_url = "";
 [Setting hidden]
 string api_key = "";
+[Setting hidden]
+bool prioritizeWR = false;
 bool show_settings = false;
 bool show_confirm_window = false;
 string button_text = "Show API details";
