@@ -243,15 +243,15 @@ void RequestHandler(ref@ arg) {
         yield();
     }
     if (request.ResponseCode() == 200) {
-        Notify("Updated data");
+        Notify("Request successful");
         return;
     }
     if (request.ResponseCode() == 0) {
         NotifyWarning("No API-enpoint found");
         return;
     }
-    NotifyWarning("Failed to update data. Response: " + request.ResponseCode() + " See log for more info.");
-    print("Failed to update data. Response: " + request.Body);
+    NotifyWarning("Request failed. Response: " + request.ResponseCode() + " See log for more info.");
+    print("Request failed. Response: " + request.Body);
 }
 
 int GetMedalId() {
