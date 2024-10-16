@@ -13,6 +13,13 @@ void Main() {
     NotifyDependency("Champion Medals are supported!");
     return;
 #endif
+
+#if DEPENDENCY_WARRIORMEDALS
+    return;
+#else
+    NotifyDependency("Warrior Medals are supported!");
+    return;
+#endif
 }
 
 void RenderInterface() {
