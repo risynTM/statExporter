@@ -288,7 +288,7 @@ int GetMedalId() {
     if (scoreMgr is null) {
         return -1;
     }
-    if (time == 4294967295) {
+    if (time == 4294967295 || time == 0) {
         return 0;
     }
     print("Pb: " + time);
