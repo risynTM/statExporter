@@ -284,6 +284,7 @@ int GetMedalId() {
     auto app = cast<CTrackMania@>(GetApp());
     auto rootMap = app.RootMap;
     auto scoreMgr = GetScoreMgr(app);
+    int medal = -1;
     uint nandoMedal;
     if (scoreMgr is null) {
         return -1;
@@ -303,20 +304,23 @@ int GetMedalId() {
         return 6;
     }
 
-#if DEPENDENCY_CHAMPIONMEDALS
-    if (time <= ChampionMedals::GetCMTime()) {
-        return 5;
+#if DEPENDENCY_WARRIORMEDALS
+    if (wmTime != 0 && time <= wmTime) {
+        medal = 7;
     }
 #endif
-#if DEPENDENCY_WARRIORMEDALS
-    if (time <= WarriorMedals::GetWMTimeAsync()) {
-        return 7;
+#if DEPENDENCY_CHAMPIONMEDALS
+    if (cmTime != 0 && time <= cmTime) {
+        medal = 5;
     }
 #endif
 
     // return Nando medal ID if above don't apply
+    if (medal == -1){
     nandoMedal = scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", "");
-    return nandoMedal
+        medal = nandoMedal;
+    }
+    return medal;
 }
 
 bool IsWR() {
