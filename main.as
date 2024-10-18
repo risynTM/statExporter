@@ -317,7 +317,7 @@ int GetMedalId() {
 
     // return Nando medal ID if above don't apply
     if (medal == -1){
-    nandoMedal = scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", "");
+        nandoMedal = scoreMgr.Map_GetMedal(UserId, mapProcessUid, "PersonalBest", "", "TimeAttack", "");
         medal = nandoMedal;
     }
     return medal;
