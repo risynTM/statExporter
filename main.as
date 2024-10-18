@@ -363,10 +363,10 @@ uint GetPB() {
 }
 
 CGameScoreAndLeaderBoardManagerScript@ GetScoreMgr(CTrackMania@ app) {
-        try {
-            return app.MenuManager.MenuCustom_CurrentManiaApp.ScoreMgr;
-        } catch {
-            return null;
+    try {
+        return app.MenuManager.MenuCustom_CurrentManiaApp.ScoreMgr;
+    } catch {
+        return null;
     }
 }
 
