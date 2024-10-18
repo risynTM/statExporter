@@ -54,6 +54,19 @@ void RenderInterface() {
     }
 }
 
+int cmTime = 0;
+int wmTime = 0;
+void UpdateCustomMedalTimes(){
+    cmTime = 0;
+    wmTime = 0;
+#if DEPENDENCY_WARRIORMEDALS
+    wmTime = WarriorMedals::GetWMTimeAsync();
+#endif
+#if DEPENDENCY_CHAMPIONMEDALS
+    cmTime = ChampionMedals::GetCMTime();
+#endif
+}
+
 string newMapUid = "";
 int newMapTMXId;
 uint64 fileStamp;
@@ -77,6 +90,7 @@ void Update(float dt) {
                 NotifyError("Error getting data from Trackmania Exchange");
                 // Stop execution ??
             }
+            UpdateCustomMedalTimes();
         }
             
         mapChangeUid = newMapUid;
